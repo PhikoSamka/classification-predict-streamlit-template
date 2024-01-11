@@ -32,11 +32,10 @@ import requests
 from PIL import Image
 
 # Data dependencies
-# other dependencies
 import pandas as pd
 
 # Vectorizer
-news_vectorizer = open("resources/tfidfvect.pkl","rb")
+news_vectorizer = open("resources/tfidf_vectorizer.pkl","rb")
 tweet_cv = joblib.load(news_vectorizer) # loading your vectorizer from the pkl file
 
 # Load your raw data
@@ -115,6 +114,21 @@ Green Mind was born from the belief that addressing climate change and environme
 				Drive widespread adoption: We foster collaboration between individuals, communities, and organizations, working together to create a more sustainable future for all.
 								"""
 			)
+		with st.container():
+			with center_column:
+				st.subheader("Our Vision")
+				st.write(
+					"""
+                    We envision a world where:
+
+                    - Sustainability is the norm: Sustainable practices are deeply ingrained in everyday life, from
+                    individual choices to organizational policies.
+                    - Data empowers action: Data-driven insights inform policy decisions and guide investments
+                    towards sustainable solutions.
+                    - Collaboration fosters progress: Individuals, communities, and organizations work together to
+                    address environmental challenges and build a thriving planet.
+                    """
+				)
 
 		with right_column:
 				st_lottie(lottie_codings, height=400, key="coding")
@@ -134,7 +148,7 @@ if selected2 == 'Predict':
 		# you can create multiple pages this way
 		options = [
 			"Prediction with Logistic Regression",
-			"Prediction with Decision Tree", "Prediction with SVC",
+			"Prediction with Decision Tree", "Prediction with Random Forest",
 			"Information"
 		]
 		selection = st.selectbox("Choose Option", options)
@@ -160,7 +174,7 @@ if selected2 == 'Predict':
 				vect_text = tweet_cv.transform([tweet_text]).toarray()
 				# Load your .pkl file with the model of your choice + make predictions
 				# Try loading in multiple models to give the user a choice
-				predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+				predictor = joblib.load(open(os.path.join("resources/LogReg_model.pkl"),"rb"))
 				prediction = predictor.predict(vect_text)
 
 				# When model has successfully run, will print prediction
@@ -179,7 +193,7 @@ if selected2 == 'Predict':
 				vect_text = tweet_cv.transform([tweet_text]).toarray()
 				# Load your .pkl file with the model of your choice + make predictions
 				# Try loading in multiple models to give the user a choice
-				predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+				predictor = joblib.load(open(os.path.join("resources/DecisionTree_model.pkl"),"rb"))
 				prediction = predictor.predict(vect_text)
 
 				# When model has successfully run, will print prediction
@@ -188,7 +202,7 @@ if selected2 == 'Predict':
 				st.success("Text Categorized as: {}".format(prediction))
 
 		# Building out the predication page
-		if selection == "Prediction with SVC":
+		if selection == "Prediction with Random Forest":
 			# Creating a text box for user input
 			tweet_text = st.text_area("Enter Text","Type Here")
 
@@ -197,17 +211,30 @@ if selected2 == 'Predict':
 				vect_text = tweet_cv.transform([tweet_text]).toarray()
 				# Load your .pkl file with the model of your choice + make predictions
 				# Try loading in multiple models to give the user a choice
-				predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+				predictor = joblib.load(open(os.path.join("resources/RandomForestClassifier_model.pkl"),"rb"))
 				prediction = predictor.predict(vect_text)
 
 				# When model has successfully run, will print prediction
 				# You can use a dictionary or similar structure to make this output
 				# more human interpretable.
 				st.success("Text Categorized as: {}".format(prediction))
+			
 
 	# Required to let Streamlit instantiate our web app.  
 	if __name__ == '__main__':
 		main()
+# Analytics Page
+if selected2 == 'Analytics':
+	st.write("---")
+	st.subheader("Analytics Dashboard (Still under construction)")
+	st.write("##")
+	st.write("""A dashboard showcasing different visualizations and slicers""")
+
+	# Sentiment Distribution Bar Chart
+	st.subheader("Sentiment Distribution")
+	sentiment_counts = raw['sentiment'].value_counts()
+	st.bar_chart(sentiment_counts)
+
 
 if selected2 == 'Contact':
 
