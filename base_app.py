@@ -32,6 +32,7 @@ import requests
 from PIL import Image
 
 # Data dependencies
+# other dependencies
 import pandas as pd
 
 # Vectorizer
