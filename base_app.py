@@ -26,6 +26,7 @@ import streamlit as st
 import joblib,os
 
 # Data dependencies
+#and these are also dependencies
 import pandas as pd
 
 # Vectorizer
