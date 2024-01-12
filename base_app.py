@@ -193,7 +193,7 @@ if selected2 == 'Predict':
 				vect_text = tweet_cv.transform([tweet_text]).toarray()
 				# Load your .pkl file with the model of your choice + make predictions
 				# Try loading in multiple models to give the user a choice
-				predictor = joblib.load(open(os.path.join("resources/DecisionTree_model.pkl"),"rb"))
+				predictor = joblib.load(open(os.path.join("resources/LogReg_model.pkl"),"rb"))
 				prediction = predictor.predict(vect_text)
 
 				# When model has successfully run, will print prediction
@@ -211,7 +211,7 @@ if selected2 == 'Predict':
 				vect_text = tweet_cv.transform([tweet_text]).toarray()
 				# Load your .pkl file with the model of your choice + make predictions
 				# Try loading in multiple models to give the user a choice
-				predictor = joblib.load(open(os.path.join("resources/RandomForestClassifier_model.pkl"),"rb"))
+				predictor = joblib.load(open(os.path.join("resources/LogReg_model.pkl"),"rb"))
 				prediction = predictor.predict(vect_text)
 
 				# When model has successfully run, will print prediction
